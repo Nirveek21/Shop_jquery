@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      .shadow-lg {
+        box-shadow: 0 2rem 2rem rgba(42, 64, 82, 0.308) !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-light bg-light mb-5">
+      <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        <form class="d-flex">
+          <div class="mx-2">
+            <a
+              class="fa fa-shopping-cart fa-2x"
+              aria-hidden="true"
+              href="./dynaicrender.html"
+              onclick="cart()"
+            ></a>
+          </div>
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            id="serch"
+          />
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            onclick="Search(document.getElementById('serch').value)"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+    <div class="container c">
+      <div class="row" id="items"></div>
+    </div>
+    <div class="container c1" style="display: none">
+      <button
+        type="button"
+        class="btn btn-success btn mb-5"
+        onClick="window.location.reload();"
+      >
+        Back Home
+      </button>
+      <div class="row" id="s1"></div>
+    </div>
+    <script>
+      var data = [
+        {
+          id: 0,
+          name: "Burger",
+          price: 54,
+          quantity: 1,
+          imgurl:
+            "https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg",
+        },
+        {
+          id: 1,
+          name: "Sandwich",
+          price: 40,
+          quantity: 1,
+          imgurl:
+            "https://www.whiskaffair.com/wp-content/uploads/2020/03/mayonnaise-Sandwich-3.jpg",
+        },
+        {
+          id: 2,
+          name: "Pasta",
+          price: 25,
+          quantity: 1,
+          imgurl:
+            "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F8246835.jpg",
+        },
+        {
+          id: 3,
+          name: "white Pasta",
+          price: 30,
+          quantity: 1,
+          imgurl:
+            "https://aartimadan.com/wp-content/uploads/2020/07/White-Sauce-Pasta.jpg",
+        },
+        {
+          id: 4,
+          name: "Chicken Pasta with sauce",
+          price: 35,
+          quantity: 1,
+          imgurl:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUIVDVuK793qp5Ji8edlZ2h37dxid6EvC_MA&usqp=CAU",
+        },
+        {
+          id: 5,
+          name: "Spicey Pasta",
+          price: 40,
+          quantity: 1,
+          imgurl:
+            "https://spicysouthernkitchen.com/wp-content/uploads/spicy-shrimp-pasta-13.jpg",
+        },
+      ];
+      for (x in data) {
+        var card = ` 
+      	<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
+          <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
+      	<div class="card" style="width: 18rem;">
+       <img src="${data[x].imgurl}" class="card-img-top" alt="..." height="200" width="300">
+       <div class="card-body">
+      <h5 class="card-title">${data[x].name}</h5>
+      			<p class="card-text">Price: Rs.${data[x].price}</p>
+      		<a href="#" class="btn btn-primary" name="${data[x].name}" id="${data[x].id}" onclick="buy(this)">Add to Cart</a>
+      	</div>
+      </div></div></div>`;
+        $("#items").append(card);
+      }
+      function Search(v) {
+        $(".c").css("display", "none");
+        $(".c1").css("display", "block");
+        var c = 0;
+        for (x in data) {
+          if (data[x].name.toLowerCase().includes(v.toLowerCase()) && v != "") {
+            var d = `<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
+                        <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
+      	<div class="card" style="width: 18rem;">
+       <img src="${data[x].imgurl}" class="card-img-top" alt="..." height="200" width="300">
+       <div class="card-body">
+      <h5 class="card-title">${data[x].name}</h5>
+      			<p class="card-text">Price: Rs.${data[x].price}</p>
+      		<a href="#" class="btn btn-primary"   name="${data[x].name}" id="${data[x].id}" onclick="buy(this)">Add to Cart</a>
+      	</div>
+      </div></div></div>`;
+            $("#s1").append(d);
+            c++;
+          }
+        }
+        if (c == 0) {
+          $("#s1").append("NO RESULT FOUND");
+        }
+      }
+      var c = 0;
+      var chkid = -1;
+      var chk = [];
+      function buy(qt) {
+        if (chkid == -1) {
+          /*console.log(qt.id);
+          console.log(c);*/
+
+          chk.push(data[qt.id]);
+          console.log(chk);
+          c++;
+          chkid = qt.id;
+        } else if (chkid == qt.id) {
+          /* console.log(data[qt.id]);
+          console.log(qt.id);
+          console.log(c);*/
+          chk.push(data[qt.id]);
+          console.log(chk);
+          c++;
+        } else {
+          c = 0;
+          /*console.log(qt.id);
+          console.log(c);*/
+          chk.push(data[qt.id]);
+          console.log(chk);
+          c++;
+        }
+        chkid = qt.id;
+        //sessionStorage.setItem("chk", JSON.stringify(chk));
+      }
+      function cart() {
+        sessionStorage.setItem("chk", JSON.stringify(chk));
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

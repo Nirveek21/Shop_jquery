@@ -1,0 +1,26 @@
+#pa2,
+#pa1,
+#pa3 {
+  margin: 0%;
+  width: 25;
+  height: 25;
+}
+body {
+  text-align: center;
+}
+#T {
+  text-align: right;
+  padding-right: 70px;
+}
+img {
+  height: 110px;
+  width: 200px;
+}
+.shadow-lg {
+  box-shadow: 0 4rem 6rem rgba(7, 56, 88, 0.342) !important;
+  padding-bottom: 1rem;
+  border-radius: 0.85rem !important;
+}
+.modal {
+  word-break: break-all;
+}
