@@ -57,13 +57,6 @@
       <div class="row" id="items"></div>
     </div>
     <div class="container c1" style="display: none">
-      <button
-        type="button"
-        class="btn btn-success btn mb-5"
-        onClick="window.location.reload();"
-      >
-        Back Home
-      </button>
       <div class="row" id="s1"></div>
     </div>
     <script>
@@ -72,7 +65,7 @@
           id: 0,
           name: "Burger",
           price: 54,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg",
         },
@@ -80,7 +73,7 @@
           id: 1,
           name: "Sandwich",
           price: 40,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://www.whiskaffair.com/wp-content/uploads/2020/03/mayonnaise-Sandwich-3.jpg",
         },
@@ -88,7 +81,7 @@
           id: 2,
           name: "Pasta",
           price: 25,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F8246835.jpg",
         },
@@ -96,7 +89,7 @@
           id: 3,
           name: "white Pasta",
           price: 30,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://aartimadan.com/wp-content/uploads/2020/07/White-Sauce-Pasta.jpg",
         },
@@ -104,7 +97,7 @@
           id: 4,
           name: "Chicken Pasta with sauce",
           price: 35,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUIVDVuK793qp5Ji8edlZ2h37dxid6EvC_MA&usqp=CAU",
         },
@@ -112,13 +105,13 @@
           id: 5,
           name: "Spicey Pasta",
           price: 40,
-          quantity: 1,
+          quantity: 0,
           imgurl:
             "https://spicysouthernkitchen.com/wp-content/uploads/spicy-shrimp-pasta-13.jpg",
         },
       ];
       for (x in data) {
-        var card = ` 
+        var card = `
       	<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
           <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
       	<div class="card" style="width: 18rem;">
@@ -132,12 +125,11 @@
         $("#items").append(card);
       }
       function Search(v) {
-        $(".c").css("display", "none");
-        $(".c1").css("display", "block");
+        var d = "";
         var c = 0;
         for (x in data) {
           if (data[x].name.toLowerCase().includes(v.toLowerCase()) && v != "") {
-            var d = `<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
+            d += `<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
                         <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
       	<div class="card" style="width: 18rem;">
        <img src="${data[x].imgurl}" class="card-img-top" alt="..." height="200" width="300">
@@ -147,46 +139,44 @@
       		<a href="#" class="btn btn-primary"   name="${data[x].name}" id="${data[x].id}" onclick="buy(this)">Add to Cart</a>
       	</div>
       </div></div></div>`;
-            $("#s1").append(d);
+
             c++;
           }
         }
+        $("#items").html("");
+        $("#items").html(`<button
+        type="button"
+        class="btn btn-success btn mb-5"
+        onClick="window.location.reload();"
+      >
+        Back Home
+      </button>`);
+        $("#items").append(d);
         if (c == 0) {
-          $("#s1").append("NO RESULT FOUND");
+          $("#items").html("NO RESULT FOUND");
         }
       }
-      var c = 0;
+      var i = 0;
       var chkid = -1;
       var chk = [];
       function buy(qt) {
         if (chkid == -1) {
-          /*console.log(qt.id);
-          console.log(c);*/
-
-          chk.push(data[qt.id]);
-          console.log(chk);
-          c++;
           chkid = qt.id;
+          chk.push(data[qt.id]);
+          chk[i].quantity += 1;
         } else if (chkid == qt.id) {
-          /* console.log(data[qt.id]);
-          console.log(qt.id);
-          console.log(c);*/
-          chk.push(data[qt.id]);
-          console.log(chk);
-          c++;
+          chk[i].quantity += 1;
         } else {
-          c = 0;
-          /*console.log(qt.id);
-          console.log(c);*/
           chk.push(data[qt.id]);
-          console.log(chk);
-          c++;
+          chk[i].quantity += 1;
+          chkid = qt.id;
+          i++;
         }
-        chkid = qt.id;
-        //sessionStorage.setItem("chk", JSON.stringify(chk));
+        console.log(chk);
+        localStorage.setItem("chk", JSON.stringify(chk));
       }
       function cart() {
-        sessionStorage.setItem("chk", JSON.stringify(chk));
+        localStorage.setItem("chk", JSON.stringify(chk));
       }
     </script>
 

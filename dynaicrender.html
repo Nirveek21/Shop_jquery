@@ -88,15 +88,12 @@
       </div>
     </div>
     <script>
-       chk = JSON.parse(sessionStorage.getItem("chk"));
+       chk = JSON.parse(localStorage.getItem("chk"));
       const counts = [];
-
-      chk.forEach(function (x) {
-        counts[x.id] = (counts[x.id] || 0) + 1;
-      });
+      console.log(chk);
         function body() {
           var htmldata;
-        for (x in counts) {
+        for (x in chk) {
 
           htmldata+= `<tr>
               <th scope="row">
@@ -110,12 +107,12 @@
                 <button type="button" class="btn bta btn-secondary" id="${x}" onclick="increase(this)"">
                   +
                 </button>
-                <span id="pa1" name="quantity">${chk[x].quantity*counts[x]}</span>
+                <span id="pa1" name="quantity">${chk[x].quantity}</span>
                 <button type="button" class="btn bt btn-secondary" id="${x}" onclick="decrease(this)">
                   -
                 </button>
               </td>
-              <td id="P1">${chk[x].price*counts[x]}</td>
+              <td id="P1">${chk[x].price*chk[x].quantity}</td>
             </tr>`;
           }
         $("#bd").html = "";
@@ -126,6 +123,7 @@
         function increase(i) {
           chk[i.id].quantity+=1;
          $("#P1").text(chk[i.id].quantity*chk[i.id].price);
+         $("#total").text()
           body();
         
         }
@@ -138,17 +136,14 @@
         }
  function total()
             {   let total=0
-                for(x in counts)
+                for(x in chk)
                 {
-                  console.log(chk[x].price*counts[x])
-                    total+=chk[x].price*counts[x]
-                    
+                  console.log(chk[x].price)
+                    total+=chk[x].price*chk[x].quantity;
                 }
                console.log(total)
                 return total
             }
-        
-        
       </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
