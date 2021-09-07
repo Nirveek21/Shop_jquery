@@ -157,22 +157,37 @@
         }
       }
       var i = 0;
-      var chkid = -1;
+
       var chk = [];
+
       function buy(qt) {
-        if (chkid == -1) {
-          chkid = qt.id;
+        var chkid = 0;
+        for (x in chk) {
+          console.log("FOR");
+          if (chk[x].id == qt.id) {
+            console.log("IF");
+            chk[x].quantity += 1;
+            chkid = 0;
+            break;
+          } else {
+            console.log("ELSE");
+            chkid++;
+          }
+        }
+        if (chkid > 0) {
+          console.log("IF1");
           chk.push(data[qt.id]);
           chk[i].quantity += 1;
-        } else if (chkid == qt.id) {
-          chk[i].quantity += 1;
-        } else {
+          i++;
+        }
+        if (chk.length == 0) {
+          console.log("IF2");
           chk.push(data[qt.id]);
           chk[i].quantity += 1;
-          chkid = qt.id;
           i++;
         }
         console.log(chk);
+        console.log(chk.length);
         localStorage.setItem("chk", JSON.stringify(chk));
       }
       function cart() {
