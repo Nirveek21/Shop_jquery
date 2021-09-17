@@ -16,7 +16,16 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      body {
+        font-family: "Caveat Brush", cursive;
+      }
       .shadow-lg {
         box-shadow: 0 2rem 2rem rgba(42, 64, 82, 0.308) !important;
       }
@@ -59,142 +68,8 @@
     <div class="container c1" style="display: none">
       <div class="row" id="s1"></div>
     </div>
-    <script>
-      var data = [
-        {
-          id: 0,
-          name: "Burger",
-          price: 54,
-          quantity: 0,
-          imgurl:
-            "https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg",
-        },
-        {
-          id: 1,
-          name: "Sandwich",
-          price: 40,
-          quantity: 0,
-          imgurl:
-            "https://www.whiskaffair.com/wp-content/uploads/2020/03/mayonnaise-Sandwich-3.jpg",
-        },
-        {
-          id: 2,
-          name: "Pasta",
-          price: 25,
-          quantity: 0,
-          imgurl:
-            "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F8246835.jpg",
-        },
-        {
-          id: 3,
-          name: "white Pasta",
-          price: 30,
-          quantity: 0,
-          imgurl:
-            "https://aartimadan.com/wp-content/uploads/2020/07/White-Sauce-Pasta.jpg",
-        },
-        {
-          id: 4,
-          name: "Chicken Pasta with sauce",
-          price: 35,
-          quantity: 0,
-          imgurl:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUIVDVuK793qp5Ji8edlZ2h37dxid6EvC_MA&usqp=CAU",
-        },
-        {
-          id: 5,
-          name: "Spicey Pasta",
-          price: 40,
-          quantity: 0,
-          imgurl:
-            "https://spicysouthernkitchen.com/wp-content/uploads/spicy-shrimp-pasta-13.jpg",
-        },
-      ];
-      for (x in data) {
-        var card = `
-      	<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
-          <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
-      	<div class="card" style="width: 18rem;">
-       <img src="${data[x].imgurl}" class="card-img-top" alt="..." height="200" width="300">
-       <div class="card-body">
-      <h5 class="card-title">${data[x].name}</h5>
-      			<p class="card-text">Price: Rs.${data[x].price}</p>
-      		<a href="#" class="btn btn-primary" name="${data[x].name}" id="${data[x].id}" onclick="buy(this)">Add to Cart</a>
-      	</div>
-      </div></div></div>`;
-        $("#items").append(card);
-      }
-      function Search(v) {
-        var d = "";
-        var c = 0;
-        for (x in data) {
-          if (data[x].name.toLowerCase().includes(v.toLowerCase()) && v != "") {
-            d += `<div class="col-lg-3 col-md-4 col-xl-3 col-sm-6 mb-5">
-                        <div class="shadow-lg bg-white rounded"style="width: 18rem;"  >
-      	<div class="card" style="width: 18rem;">
-       <img src="${data[x].imgurl}" class="card-img-top" alt="..." height="200" width="300">
-       <div class="card-body">
-      <h5 class="card-title">${data[x].name}</h5>
-      			<p class="card-text">Price: Rs.${data[x].price}</p>
-      		<a href="#" class="btn btn-primary"   name="${data[x].name}" id="${data[x].id}" onclick="buy(this)">Add to Cart</a>
-      	</div>
-      </div></div></div>`;
 
-            c++;
-          }
-        }
-        $("#items").html("");
-        $("#items").html(`<button
-        type="button"
-        class="btn btn-success btn mb-5"
-        onClick="window.location.reload();"
-      >
-        Back Home
-      </button>`);
-        $("#items").append(d);
-        if (c == 0) {
-          $("#items").html("NO RESULT FOUND");
-        }
-      }
-      var i = 0;
-
-      var chk = [];
-
-      function buy(qt) {
-        var chkid = 0;
-        for (x in chk) {
-          console.log("FOR");
-          if (chk[x].id == qt.id) {
-            console.log("IF");
-            chk[x].quantity += 1;
-            chkid = 0;
-            break;
-          } else {
-            console.log("ELSE");
-            chkid++;
-          }
-        }
-        if (chkid > 0) {
-          console.log("IF1");
-          chk.push(data[qt.id]);
-          chk[i].quantity += 1;
-          i++;
-        }
-        if (chk.length == 0) {
-          console.log("IF2");
-          chk.push(data[qt.id]);
-          chk[i].quantity += 1;
-          i++;
-        }
-        console.log(chk);
-        console.log(chk.length);
-        localStorage.setItem("chk", JSON.stringify(chk));
-      }
-      function cart() {
-        localStorage.setItem("chk", JSON.stringify(chk));
-      }
-    </script>
-
+    <script src="./index.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

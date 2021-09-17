@@ -12,6 +12,9 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
 
@@ -70,13 +73,13 @@
                       </div>
                       <div class="modal-body">...</div>
                       <div class="modal-footer">
-                        <button
-                          type="button"
+                   <button type="button"
                           class="btn btn-secondary"
-                          data-bs-dismiss="modal"
+                          data-bs-dismiss="modal" onclick="window.location.href='formvalidation.html'"
+                          
                         >
-                          Done.
-                        </button>
+                          Procced to payment
+                     </button> 
                       </tfoot>
                       </div>
                     </div>
@@ -88,8 +91,9 @@
         </table>
       </div>
     </div>
+    
     <script>
-       chk = JSON.parse(localStorage.getItem("chk"));
+       chk = JSON.parse(sessionStorage.getItem("chk"));
         
       console.log(chk);
         function body() {
@@ -103,7 +107,7 @@
                   alt=""
                 />
               </th>
-              <td>${chk[x].name} </td>
+              <td>${chk[x].Product_name} </td>
               <td id="Q1">
                 <button type="button" class="btn bta btn-secondary" id="${x}" onclick="increase(this)"">
                   +
@@ -113,8 +117,8 @@
                   -
                 </button>
               </td>
-              <td id="P1">${chk[x].price*chk[x].quantity}</td>
-              <td> <button type="button" class="btn btn-danger" id=${chk[x].id} onclick="remove(this)">-</button></td>
+              <td id="P1">Rs. ${chk[x].Product_price*chk[x].quantity}</td>
+              <td> <button type="button" class="btn btn-danger" id=${chk[x].Pid} onclick="remove(this)">-</button></td>
             </tr>`;
           }
         $("#bd").html = "";
@@ -124,7 +128,7 @@
         body();
         function increase(i) {
           chk[i.id].quantity+=1;
-         $("#P1").text(chk[i.id].quantity*chk[i.id].price);
+         $("#P1").text(chk[i.id].quantity*chk[i.id].Product_price);
          $("#total").text()
           body();
         
@@ -138,7 +142,7 @@
         }
  function total()
             {   
-              var htdata = `<h1 id="hd1">But you are Hungry !</h1>`
+              var htdata = `<h1 id="hd1">Your cart is empty !</h1>`
               if(chk.length==0)
               {
                 $("body").html(htdata);
@@ -147,7 +151,7 @@
                 for(x in chk)
                 {
                   //console.log(chk[x].price)
-                    total+=chk[x].price*chk[x].quantity;
+                    total+=chk[x].Product_price*chk[x].quantity;
                 }
                //console.log(total)
                 return total
@@ -155,9 +159,9 @@
             function remove(rem) {
               for(y in chk)
               {
-                if(chk[y].id==rem.id)
+                if(chk[y].Pid==rem.id)
                 {
-                  console.log(chk[y].id,rem.id)
+                  console.log(chk[y].Pid,rem.id)
                   chk.splice(y,1);
                   $(rem).parent().parent().remove();
                   $("#total").text(total())
